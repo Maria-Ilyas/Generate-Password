@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="style.css">
+      <title>Password Generator App</title>
+</head>
+
+<body>
+      <div class="container">
+            <h1>Generate a <br /> <span>Random Password</span></h1>
+            <div class="display">
+                  <input type="text" name="password" id="password" placeholder="Password">
+                  <img src="images/copy.png" onclick="copyPassword()" alt="copy" height="30px" width="30px">
+            </div>
+            <button class="btn" onclick="createPassword()">Generate Password</button>
+            <div class="popup" id="popup">
+                  <img src="images/tick.png">
+                  <!-- <h2>Thank You!</h2> -->
+                  <p>Your details has been successfully copied.</p>
+                  <button type="button" onclick="closePopup()">OK</button>
+            </div>
+      </div>
+
+
+
+
+
+      <script>
+
+            const passwordBox = document.getElementById("password");
+            const length = 12;
+            let popup = document.getElementById("popup");
+
+            const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const lowerCase = "abcdefghijklmnopqrstuvwxyz";
+            const number = "0123456789";
+            const symbol = "@#$%^&*()_+~|{}[]<>/-=";
+
+            const allChars = upperCase + lowerCase + number + symbol;
+
+            function createPassword() {
+                  let password = "";
+                  password += upperCase[Math.floor(Math.random() * upperCase.length)];
+                  password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+                  password += number[Math.floor(Math.random() * number.length)];
+                  password += symbol[Math.floor(Math.random() * symbol.length)];
+
+
+                  while (length > password.length) {
+                        password += allChars[Math.floor(Math.random() * allChars.length)];
+                  }
+                  passwordBox.value = password;
+            }
+
+            function copyPassword() {
+                  passwordBox.select();
+                  document.execCommand("copy");
+
+                  popup.classList.add("open-popup");
+            }
+
+            function closePopup() {
+                  popup.classList.remove("open-popup");
+            }
+      </script>
+</body>
+
+</html>
